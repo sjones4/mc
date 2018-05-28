@@ -113,11 +113,16 @@ func newFactory() func(config *Config) (Client, *probe.Error) {
 		var api *minio.Client
 		var found bool
 		if api, found = clientCache[confSum]; !found {
-			// if Signature version '4' use NewV4 directly.
-			creds := credentials.NewStaticV4(config.AccessKey, config.SecretKey, "")
-			// if Signature version '2' use NewV2 directly.
-			if strings.ToUpper(config.Signature) == "S3V2" {
-				creds = credentials.NewStaticV2(config.AccessKey, config.SecretKey, "")
+			var creds *credentials.Credentials
+			if config.Provider == "profile" {
+				creds = credentials.NewIAM("")
+			} else {
+				// if Signature version '4' use NewV4 directly.
+				creds = credentials.NewStaticV4(config.AccessKey, config.SecretKey, "")
+				// if Signature version '2' use NewV2 directly.
+				if strings.ToUpper(config.Signature) == "S3V2" {
+					creds = credentials.NewStaticV2(config.AccessKey, config.SecretKey, "")
+				}
 			}
 			// Not found. Instantiate a new minio
 			var e error

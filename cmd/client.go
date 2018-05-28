@@ -92,6 +92,7 @@ type clientContent struct {
 type Config struct {
 	AccessKey   string
 	SecretKey   string
+	Provider    string
 	Signature   string
 	HostURL     string
 	AppName     string

@@ -40,6 +40,7 @@ type hostConfigV9 struct {
 	URL       string `json:"url"`
 	AccessKey string `json:"accessKey"`
 	SecretKey string `json:"secretKey"`
+	Provider  string `json:"credentialsProvider"`
 	API       string `json:"api"`
 	Lookup    string `json:"lookup"`
 }

@@ -115,6 +115,7 @@ func newS3Config(urlStr string, hostCfg *hostConfigV9) *Config {
 	if hostCfg != nil {
 		s3Config.AccessKey = hostCfg.AccessKey
 		s3Config.SecretKey = hostCfg.SecretKey
+		s3Config.Provider  = hostCfg.Provider
 		s3Config.Signature = hostCfg.API
 	}
 	s3Config.Lookup = getLookupType(hostCfg.Lookup)
